@@ -14,6 +14,8 @@ test.describe('Testes de API', () => {
       }
     });
     await expect(response.status()).toBe(200);
+    const body = await response.json();
+    await expect(body.json.name).toBe('Mauricio');
   });
 
 });
