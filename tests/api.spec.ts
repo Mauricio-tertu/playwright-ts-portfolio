@@ -5,6 +5,7 @@ test.describe('Testes de API', () => {
   test('GET deve retornar status 200', async ({ request }) => {
     const response = await request.get('https://postman-echo.com/get');
     await expect(response.status()).toBe(200);
+
   });
 
   test('POST deve enviar dados e receber confirmação', async ({ request }) => {
@@ -12,10 +13,16 @@ test.describe('Testes de API', () => {
       data: {
         name: 'Mauricio'
       }
+
     });
+
     await expect(response.status()).toBe(200);
     const body = await response.json();
     await expect(body.json.name).toBe('Mauricio');
   });
 
+   test('GET rota inexistente deve retornar 404', async ({ request }) => {
+    const response = await request.get('https://postman-echo.com/nada');
+    await expect(response.status()).toBe(404);
+});
 });
