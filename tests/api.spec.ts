@@ -25,4 +25,20 @@ test.describe('Testes de API', () => {
     const response = await request.get('https://postman-echo.com/nada');
     await expect(response.status()).toBe(404);
 });
+
+test('PUT deve atualizar dados e retornar status 200', async ({ request }) => {
+  const response = await request.put('https://postman-echo.com/put', {
+    data: {
+      name: 'Mauricio Atualizado'
+    }
+  });
+  await expect(response.status()).toBe(200);
+
+  const body = await response.json();
+  await expect(body.json.name).toBe('Mauricio Atualizado');
+});
+test('DELETE deve remover recurso e retornar status 200', async ({ request }) => {
+  const response = await request.delete('https://postman-echo.com/delete');
+  await expect(response.status()).toBe(200);
+});
 });
