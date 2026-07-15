@@ -1,23 +1,24 @@
 import { test, expect } from '@playwright/test';
-
+import { LoginPage } from '../pages/loginPage';
 test.describe('Testes de Login', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('https://practicetestautomation.com/practice-test-login/');
   });
 
   test('login com sucesso deve mostrar mensagem de boas-vindas', async ({ page }) => {
-    await page.locator('input[name="username"]').fill('student');
-    await page.locator('input[name="password"]').fill('Password123');
-    await page.locator('button[id="submit"]').click();
+     const loginPage = new LoginPage(page);
+  await loginPage.fazerLogin('student', 'Password123');
+
 
     await expect(page).toHaveURL(/success/);
     await expect(page.locator('body')).toContainText('Logged In Successfully');
   });
 
   test('login com senha inválida deve mostrar mensagem de erro', async ({ page }) => {
-    await page.locator('input[name="username"]').fill('student');
-    await page.locator('input[name="password"]').fill('SenhaErrada123');
-    await page.locator('button[id="submit"]').click();
+     const loginPage = new LoginPage(page);
+  await loginPage.fazerLogin('student', 'SenhaErrada123');
+
+
 
     const mensagemErro = page.locator('#error');
     await expect(mensagemErro).toBeVisible();
@@ -25,9 +26,10 @@ test.describe('Testes de Login', () => {
   });
 
   test('login com campos vazios deve mostrar mensagem de erro', async ({ page }) => {
-    await page.locator('input[name="username"]').fill('');
-    await page.locator('input[name="password"]').fill('');
-    await page.locator('button[id="submit"]').click();
+     const loginPage = new LoginPage(page);
+  await loginPage.fazerLogin('', '');
+
+
 
     const mensagemErro = page.locator('#error');
     await expect(mensagemErro).toBeVisible();
