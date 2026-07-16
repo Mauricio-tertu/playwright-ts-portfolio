@@ -13,6 +13,9 @@ export class LoginPage {
     this.campoSenha = page.locator('input[name="password"]');
     this.botaoLogin = page.locator('button[id="submit"]');
   }
+  async goto() {
+  await this.page.goto('https://practicetestautomation.com/practice-test-login/');
+}
   async fazerLogin(usuario: string, senha: string) {
   await this.campoUsuario.fill(usuario);
   await this.campoSenha.fill(senha);
