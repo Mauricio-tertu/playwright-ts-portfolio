@@ -1,7 +1,7 @@
 # Playwright TS Portfolio
 
 Suíte de testes end-to-end desenvolvida com **Playwright** e **TypeScript**, criada como parte da minha transição de carreira para QA Automation.
-
+![Playwright Tests](https://github.com/Mauricio-tertu/playwright-ts-portfolio/actions/workflows/playwright.yml/badge.svg)
 ## 🎯 Objetivo
 
 Este repositório documenta minha prática de automação de testes, aplicando boas práticas como reutilização de código, seletores CSS limpos e organização por cenários de teste.
@@ -13,16 +13,19 @@ Este repositório documenta minha prática de automação de testes, aplicando b
 - **Node.js v24** — ambiente de execução
 - **GitHub Actions** — CI configurado para rodar os testes automaticamente
 
-## 📋 Testes implementados
+## 🧪 Testes implementados
 
-Testes de login cobrindo os seguintes cenários (`tests/login.spec.ts`):
+**33 execuções por rodada** (11 cenários × 3 navegadores: Chromium, Firefox e WebKit)
 
-- ✅ Login com credenciais válidas (valida URL e mensagem de sucesso)
-- ✅ Login com senha inválida (valida mensagem de erro)
-- ✅ Login com campos vazios (valida mensagem de erro)
+- **Login** (`tests/login.spec.ts`) — 3 cenários: credenciais válidas, senha inválida, campos vazios
+- **Logout** (`tests/logout.spec.ts`) — fluxo completo de login → logout → validação de retorno
+- **API** (`tests/api.spec.ts`) — 5 cenários: GET, POST, PUT, DELETE e rota inexistente (404)
 
-Todos os testes rodam em **3 navegadores**: Chromium, Firefox e WebKit.
+## 🏗️ Arquitetura
 
+- **Page Object Model (POM)** — `pages/loginPage.ts` e `pages/securePage.ts` centralizam seletores e ações
+- **Retries e timeouts configurados** — mitigação de flakiness documentada
+- **CI com GitHub Actions** — suíte completa a cada push, com relatório HTML como artifact
 ## 🚀 Como rodar os testes
 
 Clone o repositório e instale as dependências:
