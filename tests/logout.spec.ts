@@ -7,7 +7,7 @@ test.describe('Testes de Logout', () => {
     await page.goto('https://practicetestautomation.com/practice-test-login/');
   });
 
-  test('logout após login bem-sucedido deve voltar pra página de login', async ({ page }) => {
+  test('logout após login bem-sucedido deve voltar pra página de login @smoke @regression', async ({ page }) => {
     // 1. Fazer login
     const loginPage = new LoginPage(page);
 await loginPage.fazerLogin('student', 'Password123');

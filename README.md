@@ -21,6 +21,18 @@ Este repositório documenta minha prática de automação de testes, aplicando b
 - **Logout** (`tests/logout.spec.ts`) — fluxo completo de login → logout → validação de retorno
 - **API** (`tests/api.spec.ts`) — 5 cenários: GET, POST, PUT, DELETE e rota inexistente (404)
 
+## 🔥 Suítes de teste
+
+Os testes são organizados por tags, permitindo execuções seletivas:
+
+- `@smoke` — caminhos vitais (login, logout, API respondendo): validação rápida em ~1 min
+- `@regression` — suíte completa: garante que mudanças não quebraram funcionalidades existentes
+
+```bash
+npx playwright test --grep @smoke       # só os vitais
+npx playwright test --grep @regression  # regressão completa
+```
+
 ## 🏗️ Arquitetura
 
 - **Page Object Model (POM)** — `pages/loginPage.ts` e `pages/securePage.ts` centralizam seletores e ações

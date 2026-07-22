@@ -7,7 +7,7 @@ test.describe('Testes de Login', () => {
 });
 
 
-  test('login com sucesso deve mostrar mensagem de boas-vindas', async ({ page }) => {
+  test('login com sucesso deve mostrar mensagem de boas-vindas @smoke @regression ', async ({ page }) => {
      const loginPage = new LoginPage(page);
   await loginPage.fazerLogin('student', 'Password123');
 
@@ -16,7 +16,7 @@ test.describe('Testes de Login', () => {
     await expect(page.locator('body')).toContainText('Logged In Successfully');
   });
 
-  test('login com senha inválida deve mostrar mensagem de erro', async ({ page }) => {
+  test('login com senha inválida deve mostrar mensagem de erro @regression', async ({ page }) => {
      const loginPage = new LoginPage(page);
   await loginPage.fazerLogin('student', 'SenhaErrada123');
 
@@ -27,7 +27,7 @@ test.describe('Testes de Login', () => {
     await expect(mensagemErro).toContainText('Your password is invalid!');
   });
 
-  test('login com campos vazios deve mostrar mensagem de erro', async ({ page }) => {
+  test('login com campos vazios deve mostrar mensagem de erro @regression', async ({ page }) => {
      const loginPage = new LoginPage(page);
   await loginPage.fazerLogin('', '');
 
