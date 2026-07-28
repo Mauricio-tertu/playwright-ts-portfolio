@@ -41,4 +41,17 @@ test('DELETE deve remover recurso e retornar status 200 @regression', async ({ r
   const response = await request.delete('https://postman-echo.com/delete');
   await expect(response.status()).toBe(200);
 });
+
+test('POST sem campo obrigatorio reflete ausencia no echo @regression', async ({ request }) => {
+  // Nota: postman-echo.com nao valida dados (API mock), entao nao retorna erro.
+  // Este teste documenta esse comportamento conhecido, confirmando que o campo
+  // ausente realmente nao aparece na resposta.
+  const response = await request.post('https://postman-echo.com/post', {
+    data: {}
+  });
+
+  await expect(response.status()).toBe(200);
+  const body = await response.json();
+  await expect(body.data.name).toBeUndefined();
+});
 });
