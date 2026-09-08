@@ -6,6 +6,20 @@ Suíte de testes end-to-end desenvolvida com **Playwright** e **TypeScript**, cr
 
 Este repositório documenta minha prática de automação de testes, aplicando boas práticas como reutilização de código, seletores CSS limpos e organização por cenários de teste.
 
+## 🏢 Projeto Real em Produção — HOLYSET
+
+Além da suíte de automação abaixo, atuo como **QA responsável** de um app real em produção usado por igrejas para gestão de cultos, escalas e repertório musical ([holy-set.vercel.app](https://holy-set.vercel.app)), trabalhando junto a um engenheiro sénior (Deloitte Portugal) e um desenvolvedor.
+
+**O que esse trabalho envolve:**
+- Testes exploratórios manuais em mobile e desktop, com bugs reais documentados e rastreados em JIRA
+- Investigação de causa raiz — não apenas reportar sintomas, mas isolar a origem real do problema (ex: diferenciar um bug de UI de uma falha de permissão no banco de dados)
+- Plano de testes estruturado por risco e prioridade, alinhado com a equipe de desenvolvimento antes da implementação de novas features
+
+**Destaque técnico:** na sessão de 08/09/2026, identifiquei 6 bugs em uma única sessão e, mais importante, isolei a causa raiz comum entre eles — uma policy de permissão (RLS) mal configurada em uma tabela específica do banco, validada por teste cruzado em outras áreas do sistema que confirmaram estar funcionando corretamente. Isso evitou uma investigação ampla desnecessária e direcionou a correção com precisão.
+
+📄 Relatórios completos: [`docs/relatorios/`](docs/relatorios/)
+📋 Casos de teste manuais: [`docs/casos-de-teste-manuais.md`](docs/casos-de-teste-manuais.md)
+
 ## 🛠️ Stack
 
 - **Playwright** — framework de automação de testes E2E
