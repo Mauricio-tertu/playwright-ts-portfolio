@@ -2,7 +2,9 @@
 
 ![Playwright Tests](https://github.com/Mauricio-tertu/playwright-ts-portfolio/actions/workflows/playwright.yml/badge.svg)
 
-Portfólio de QA com automação em **Playwright + TypeScript** e um caso real de projeto profissional em produção — não apenas exercícios de curso.
+> QA responsável pelo HOLYSET, em produção — atenção aos detalhes que fazem a diferença.
+
+Meu trabalho como QA não é só encontrar bugs, é entender o sistema profundamente o suficiente pra saber onde ele vai falhar antes que o usuário descubra. Este repositório documenta esse processo no HOLYSET: investigação de causa raiz, decisões sobre o que testar primeiro, e a automação que sustenta isso no longo prazo.
 
 ---
 
