@@ -1,24 +1,42 @@
 # Playwright TS Portfolio
 
-Suíte de testes end-to-end desenvolvida com **Playwright** e **TypeScript**, criada como parte da minha transição de carreira para QA Automation.
 ![Playwright Tests](https://github.com/Mauricio-tertu/playwright-ts-portfolio/actions/workflows/playwright.yml/badge.svg)
-## 🎯 Objetivo
 
-Este repositório documenta minha prática de automação de testes, aplicando boas práticas como reutilização de código, seletores CSS limpos e organização por cenários de teste.
+Portfólio de QA com automação em **Playwright + TypeScript** e um caso real de projeto profissional em produção — não apenas exercícios de curso.
+
+---
 
 ## 🏢 Projeto Real em Produção — HOLYSET
 
-Além da suíte de automação abaixo, atuo como **QA responsável** de um app real em produção usado por igrejas para gestão de cultos, escalas e repertório musical ([holy-set.vercel.app](https://holy-set.vercel.app)), trabalhando junto a um engenheiro sénior (Deloitte Portugal) e um desenvolvedor.
+Atuo como **QA único e responsável** por um sistema real em produção, usado por igrejas para gestão de cultos, escalas e repertório musical — [holy-set.vercel.app](https://holy-set.vercel.app) — trabalhando junto a um engenheiro sénior (com passagem pela Deloitte Portugal) e um desenvolvedor.
 
-**O que esse trabalho envolve:**
-- Testes exploratórios manuais em mobile e desktop, com bugs reais documentados e rastreados em JIRA
-- Investigação de causa raiz — não apenas reportar sintomas, mas isolar a origem real do problema (ex: diferenciar um bug de UI de uma falha de permissão no banco de dados)
-- Plano de testes estruturado por risco e prioridade, alinhado com a equipe de desenvolvimento antes da implementação de novas features
+### Números do trabalho até aqui
 
-**Destaque técnico:** na sessão de 08/09/2026, identifiquei 6 bugs em uma única sessão e, mais importante, isolei a causa raiz comum entre eles — uma policy de permissão (RLS) mal configurada em uma tabela específica do banco, validada por teste cruzado em outras áreas do sistema que confirmaram estar funcionando corretamente. Isso evitou uma investigação ampla desnecessária e direcionou a correção com precisão.
+| Métrica | Valor |
+|---|---|
+| Sessões de teste exploratório documentadas | 5 |
+| Defeitos identificados e rastreados no Jira | 20+ (SCRUM-11 a SCRUM-31) |
+| Módulos com CRUD validado de ponta a ponta | 3 (Escalas, Playlists, Biblioteca de Louvores) |
+| Falha sistêmica isolada por investigação de causa raiz | 1 (RLS mal configurado) |
+| Metodologia de teste | Mobile-first (viewport ~338×689) |
 
-📄 Relatórios completos: [`docs/relatorios/`](docs/relatorios/)
-📋 Casos de teste manuais: [`docs/casos-de-teste-manuais.md`](docs/casos-de-teste-manuais.md)
+### Destaques técnicos
+
+- **Investigação de causa raiz, não só sintoma:** em vez de reportar cada erro 403 isoladamente, isolei que a origem comum era uma *policy* de **RLS (Row Level Security)** mal configurada no banco (Supabase), validando a hipótese com testes cruzados em áreas não afetadas do sistema. Isso evitou uma investigação ampla e direcionou a correção da equipe de desenvolvimento com precisão.
+- **Identificação de regra de negócio violada:** o sistema permitia múltiplos "Diretor Musical" no mesmo culto, contrariando uma regra que a equipe assumia como garantida pela interface.
+- **Padrão sistêmico, não bug isolado:** identifiquei ausência recorrente de validação de formulário nos módulos de Culto e Playlist através de testes progressivos (do caso simples ao caso extremo), escalando como problema estrutural em vez de tickets soltos.
+- **Escalação criteriosa:** quando um comportamento era ambíguo (regra de negócio incerta, não um bug confirmado), escalei como pergunta ao Product Owner em vez de abrir ticket sem validação — evitando ruído no backlog.
+- **Achado de testabilidade proativo:** identifiquei e documentei a ausência sistêmica de atributos `id`/`name`/`data-testid` em toda a aplicação, um risco tanto para automação quanto para acessibilidade, e escalei como débito técnico para a equipe.
+- **Teste de segurança básico:** validação de XSS em campos de nome, com resultado positivo (inputs tratados como texto literal, sem execução de script).
+
+### Evidência documentada
+
+- 📋 [Plano de teste formal](docs/plano-de-teste/plano-de-teste-holyset.md) — escopo, tipos de teste, estratégia de automação e matriz de rastreabilidade
+- 📄 [Relatórios de sessão completos](docs/relatorios-holyset/) — 5 sessões, do achado ao ticket
+- 🧪 [Casos de teste manuais](docs/casos-de-teste-manuais.md)
+- 🔌 [Testes de API via Postman](docs/testes-api-postman.md)
+
+---
 
 ## 🛠️ Stack
 
@@ -26,20 +44,21 @@ Além da suíte de automação abaixo, atuo como **QA responsável** de um app r
 - **TypeScript** — tipagem estática para JavaScript
 - **Node.js v24** — ambiente de execução
 - **GitHub Actions** — CI configurado para rodar os testes automaticamente
+- **Jira** — gestão de bugs e casos de teste em ambiente profissional real
 
-## 🧪 Testes implementados
+## 🧪 Testes automatizados implementados
 
 **33 execuções por rodada** (11 cenários × 3 navegadores: Chromium, Firefox e WebKit)
 
-- **Login** (`tests/login.spec.ts`) — 3 cenários: credenciais válidas, senha inválida, campos vazios
+- **Login** (`tests/login.spec.ts`) — credenciais válidas, senha inválida, campos vazios
 - **Logout** (`tests/logout.spec.ts`) — fluxo completo de login → logout → validação de retorno
-- **API** (`tests/api.spec.ts`) — 5 cenários: GET, POST, PUT, DELETE e rota inexistente (404)
+- **API** (`tests/api.spec.ts`) — GET, POST, PUT, DELETE e rota inexistente (404)
 
 ## 🔥 Suítes de teste
 
-Os testes são organizados por tags, permitindo execuções seletivas:
+Testes organizados por tags, permitindo execuções seletivas:
 
-- `@smoke` — caminhos vitais (login, logout, API respondendo): validação rápida em ~1 min
+- `@smoke` — caminhos vitais: validação rápida (~1 min)
 - `@regression` — suíte completa: garante que mudanças não quebraram funcionalidades existentes
 
 ```bash
@@ -49,9 +68,10 @@ npx playwright test --grep @regression  # regressão completa
 
 ## 🏗️ Arquitetura
 
-- **Page Object Model (POM)** — `pages/loginPage.ts` e `pages/securePage.ts` centralizam seletores e ações
+- **Page Object Model (POM)** — `pages/loginPage.ts`, `pages/securePage.ts`, `pages/loginPage.holyset.ts` centralizam seletores e ações
 - **Retries e timeouts configurados** — mitigação de flakiness documentada
 - **CI com GitHub Actions** — suíte completa a cada push, com relatório HTML como artifact
+
 ## 🚀 Como rodar os testes
 
 Clone o repositório e instale as dependências:
@@ -82,20 +102,33 @@ npx playwright show-report
 
 ## 📁 Estrutura do projeto
 
+```
+├── docs/
+│   ├── plano-de-teste/           # Plano de teste formal do HOLYSET
+│   ├── relatorios-holyset/       # Relatórios de sessão de teste exploratório
+│   ├── casos-de-teste-manuais.md
+│   └── testes-api-postman.md
+├── pages/                        # Page Object Model
+├── tests/                        # Specs Playwright
+└── playwright.config.ts
+```
+
 ## 📌 Boas práticas aplicadas
 
 - Uso de `beforeEach` para eliminar repetição de código de setup
-- Seletores CSS puros (ex: `#error`) em vez de sintaxe de locator menos comum
+- Page Object Model para isolar seletores de lógica de teste
 - Nomes de teste descritivos, explicando o comportamento esperado
+- Bugs confirmados por reprodução antes de formalizados — casos ambíguos são investigados, não reportados como ruído
 
 ## 🔜 Próximos passos
 
-- [ ] Testes de API
-- [ ] Page Object Model
-- [ ] Integração com Jira para gestão de casos de teste
+- [ ] Suite de testes de API para o HOLYSET (Supabase)
+- [ ] Page Object Model do módulo Cultos
+- [ ] Auditoria de acessibilidade básica (axe-core)
+- [ ] Certificação ISTQB
 
 ## 👤 Autor
 
 **Maurício Tertuliano**
-Em transição para QA Automation | Portugal
+QA em transição de carreira (indústria → tecnologia) | Braga, Portugal
 [LinkedIn](https://www.linkedin.com/in/maur%C3%ADcio-tert%C3%BAliano-3b916a20b/)
