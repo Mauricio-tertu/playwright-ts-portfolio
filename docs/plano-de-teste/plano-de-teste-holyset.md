@@ -4,7 +4,7 @@
 **QA Responsável:** Maurício Silva
 **Ambiente de teste:** segredinho.memremodelacoes.pt (dev)
 **Ambiente de produção:** holy-set.vercel.app
-**Data de criação:** 13/09/2026
+**Data de criação:** 06/07/2026
 **Versão:** 1.0
 
 ---
