@@ -36,8 +36,8 @@ Definir o escopo, os tipos de teste, a estratégia e os critérios de qualidade 
 | Exploratório | ✅ Em execução | Manual + Chrome DevTools |
 | Automação E2E | 🔄 Em construção (POM do HOLYSET criado; specs de login/logout pendentes) | Playwright + TypeScript |
 | Teste de API | ✅ Iniciado (endpoint `ministry_data`: autenticado + validação de RLS) | Playwright API |
-| Regressão | 🔶 Parcial (tag `@regression` em uso, sem suite HOLYSET-específica ainda) | Suite Playwright |
-| Smoke test | 🔶 Parcial (tag `@smoke` definida e rodando via CI a cada push; falta cobertura E2E do HOLYSET) | Playwright (subset @smoke) |
+| Regressão | ❌ Não iniciado (tag `@regression` existe no repo, mas não cobre nenhum fluxo do HOLYSET) | Suite Playwright |
+| Smoke test | ❌ Não iniciado (tag `@smoke` existe no repo, mas não cobre nenhum fluxo do HOLYSET) | Playwright (subset @smoke) |
 | Compatibilidade | 🔶 Parcial (mobile viewport simulado) | Chrome DevTools Device Toolbar |
 | Acessibilidade | ❌ Não iniciado | axe-core / Lighthouse |
 | Segurança básica | 🔶 Parcial (XSS em nome; RLS validado via teste de API) | Manual + Playwright API |
@@ -106,7 +106,7 @@ Definir o escopo, os tipos de teste, a estratégia e os critérios de qualidade 
 1. ~~Implementar suite de testes de API (Supabase endpoints)~~ ✅ **Feito (15/09/2026)** — `tests/holyset-supabase.spec.ts`, cobrindo `ministry_data` autenticado e validação de RLS (401 sem apikey)
 2. Expandir a suite de API pra outros endpoints (Escalas, Playlists, Biblioteca de Louvores, Cultos)
 3. Escrever os specs E2E de login/logout do HOLYSET usando o POM já criado (`pages/loginPage.holyset.ts`)
-4. Definir subset de smoke test (@smoke) específico do HOLYSET (hoje a tag existe no repositório, mas ainda não cobre fluxos do HOLYSET em si)
+4. Implementar smoke test e regressão do HOLYSET — 100% pendente (as tags `@smoke`/`@regression` existem no repositório, mas hoje só cobrem o site de prática e o teste de API novo, nenhum fluxo real do HOLYSET)
 5. Rodar auditoria de acessibilidade básica (axe-core) e reportar achados
 6. Formalizar casos de teste em Gherkin para os fluxos críticos do HOLYSET já testados exploratoriamente (hoje só o fluxo de login do site de prática está em Gherkin, em `docs/casos-de-teste.md`)
 7. Negociar com Rafael a inclusão de `data-testid` como padrão de desenvolvimento
