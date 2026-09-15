@@ -30,11 +30,12 @@ Atuo como **QA único e responsável** por um sistema real em produção, usado 
 - **Escalação criteriosa:** quando um comportamento era ambíguo (regra de negócio incerta, não um bug confirmado), escalei como pergunta ao Product Owner em vez de abrir ticket sem validação — evitando ruído no backlog.
 - **Achado de testabilidade proativo:** identifiquei e documentei a ausência sistêmica de atributos `id`/`name`/`data-testid` em toda a aplicação, um risco tanto para automação quanto para acessibilidade, e escalei como débito técnico para a equipe.
 - **Teste de segurança básico:** validação de XSS em campos de nome, com resultado positivo (inputs tratados como texto literal, sem execução de script).
+- **Investigação independente de credenciais + teste de API de segurança:** sem acesso direto às chaves do Supabase, localizei a configuração no código-fonte e capturei a URL/anon key via inspeção de tráfego de rede no ambiente real, depois automatizei um teste que valida que a API **bloqueia corretamente acesso sem autenticação (401)** — confirmando que a política de RLS está ativa e funcionando.
 
 ### Evidência documentada
 
 - 📋 [Plano de teste formal](docs/plano-de-teste/plano-de-teste-holyset.md) — escopo, tipos de teste, estratégia de automação e matriz de rastreabilidade
-- 📄 [Relatórios de sessão completos](docs/relatorios-holyset/) — 5 sessões, do achado ao ticket
+- 📄 [Relatórios de sessão completos](docs/relatorios-holyset/) — 6 sessões, do achado ao ticket
 - 🧪 [Casos de teste manuais](docs/casos-de-teste-manuais.md)
 - 🔌 [Testes de API via Postman](docs/testes-api-postman.md)
 
@@ -55,6 +56,7 @@ Atuo como **QA único e responsável** por um sistema real em produção, usado 
 - **Login** (`tests/login.spec.ts`) — credenciais válidas, senha inválida, campos vazios
 - **Logout** (`tests/logout.spec.ts`) — fluxo completo de login → logout → validação de retorno
 - **API** (`tests/api.spec.ts`) — GET, POST, PUT, DELETE e rota inexistente (404)
+- **API real do HOLYSET** (`tests/holyset-supabase.spec.ts`) — validação da API REST do Supabase em produção, incluindo teste de segurança negativo (bloqueio de acesso sem autenticação)
 
 ## 🔥 Suítes de teste
 
@@ -124,7 +126,7 @@ npx playwright show-report
 
 ## 🔜 Próximos passos
 
-- [ ] Suite de testes de API para o HOLYSET (Supabase)
+- [x] Suite de testes de API para o HOLYSET (Supabase)
 - [ ] Page Object Model do módulo Cultos
 - [ ] Auditoria de acessibilidade básica (axe-core)
 - [ ] Certificação ISTQB

@@ -1,4 +1,7 @@
 
+# Variáveis de ambiente (credenciais)
+.env
+
 # Playwright
 node_modules/
 /test-results/
