@@ -1,6 +1,9 @@
 # Playwright TS Portfolio
 
 ![Playwright Tests](https://github.com/Mauricio-tertu/playwright-ts-portfolio/actions/workflows/playwright.yml/badge.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-2EAD33?logo=playwright&logoColor=white)
+![License](https://img.shields.io/badge/license-ISC-blue)
 
 > QA responsável pelo HOLYSET, em produção — atenção aos detalhes que fazem a diferença.
 
@@ -18,8 +21,9 @@ Atuo como **QA único e responsável** por um sistema real em produção, usado 
 |---|---|
 | Sessões de teste exploratório documentadas | 5 |
 | Defeitos identificados e rastreados no Jira | 20+ (SCRUM-11 a SCRUM-31) |
-| Módulos com CRUD validado de ponta a ponta | 3 (Escalas, Playlists, Biblioteca de Louvores) |
+| Módulos com CRUD validado de ponta a ponta | 4 (Escalas, Playlists, Biblioteca de Louvores, Cultos) |
 | Falha sistêmica isolada por investigação de causa raiz | 1 (RLS mal configurado) |
+| Cenários de teste automatizados (E2E + API) | 12 |
 | Metodologia de teste | Mobile-first (viewport ~338×689) |
 
 ### Destaques técnicos
@@ -45,18 +49,20 @@ Atuo como **QA único e responsável** por um sistema real em produção, usado 
 
 - **Playwright** — framework de automação de testes E2E
 - **TypeScript** — tipagem estática para JavaScript
-- **Node.js v24** — ambiente de execução
+- **Node.js (LTS)** — ambiente de execução
 - **GitHub Actions** — CI configurado para rodar os testes automaticamente
 - **Jira** — gestão de bugs e casos de teste em ambiente profissional real
 
 ## 🧪 Testes automatizados implementados
 
-**33 execuções por rodada** (11 cenários × 3 navegadores: Chromium, Firefox e WebKit)
+**36 execuções por rodada local completa** (12 cenários × 3 navegadores: Chromium, Firefox e WebKit)
 
 - **Login** (`tests/login.spec.ts`) — credenciais válidas, senha inválida, campos vazios
 - **Logout** (`tests/logout.spec.ts`) — fluxo completo de login → logout → validação de retorno
 - **API** (`tests/api.spec.ts`) — GET, POST, PUT, DELETE e rota inexistente (404)
 - **API real do HOLYSET** (`tests/holyset-supabase.spec.ts`) — validação da API REST do Supabase em produção, incluindo teste de segurança negativo (bloqueio de acesso sem autenticação)
+
+> No CI público (badge acima) essa última suíte aparece como *skipped*, não como falha: ela depende de credenciais que não são versionadas por segurança. Localmente, com o `.env` preenchido (ver `.env.example`), os 12 cenários rodam de ponta a ponta.
 
 ## 🔥 Suítes de teste
 
@@ -86,10 +92,19 @@ cd playwright-ts-portfolio
 npm install
 ```
 
+(Opcional) Pra rodar a suíte real do Supabase, copie `.env.example` para `.env` e preencha com credenciais válidas. Sem isso, essa suíte é pulada automaticamente.
+
 Rode todos os testes:
 
 ```bash
-npx playwright test
+npm test
+```
+
+Rode apenas smoke ou regressão:
+
+```bash
+npm run test:smoke
+npm run test:regression
 ```
 
 Rode apenas os testes de login:
@@ -101,7 +116,7 @@ npx playwright test login.spec.ts
 Veja o relatório HTML após a execução:
 
 ```bash
-npx playwright show-report
+npm run report
 ```
 
 ## 📁 Estrutura do projeto
@@ -123,11 +138,15 @@ npx playwright show-report
 - Page Object Model para isolar seletores de lógica de teste
 - Nomes de teste descritivos, explicando o comportamento esperado
 - Bugs confirmados por reprodução antes de formalizados — casos ambíguos são investigados, não reportados como ruído
+- Credenciais isoladas via `.env` (nunca versionado) — apenas `.env.example` sobe ao repositório
+- Testes que dependem de credenciais externas fazem `test.skip()` de forma explícita quando o ambiente não as tem, em vez de falhar o CI silenciosamente
 
 ## 🔜 Próximos passos
 
 - [x] Suite de testes de API para o HOLYSET (Supabase)
-- [ ] Page Object Model do módulo Cultos
+- [ ] Specs E2E de login/logout do HOLYSET (POM já criado em `pages/loginPage.holyset.ts`)
+- [ ] Smoke test e regressão específicos do HOLYSET (hoje as tags só cobrem o site de prática e a API)
+- [ ] Expandir testes de API para outros endpoints (Escalas, Playlists, Biblioteca de Louvores)
 - [ ] Auditoria de acessibilidade básica (axe-core)
 - [ ] Certificação ISTQB
 

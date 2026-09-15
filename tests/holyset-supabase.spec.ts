@@ -15,17 +15,22 @@ import { test, expect } from '@playwright/test';
  * docs/relatorios-holyset/relatorio-testes-holyset-15-09-2026.md.
  */
 
-const SUPABASE_URL = process.env.SUPABASE_URL!;
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY!;
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
 
 test.describe('API - ministry_data (Supabase REST) @regression', () => {
+
+  test.skip(
+    !SUPABASE_URL || !SUPABASE_ANON_KEY,
+    'Credenciais do Supabase não configuradas neste ambiente — suite roda apenas localmente, com .env preenchido (ver .env.example).'
+  );
 
   test('GET com apikey válida deve retornar 200 e uma lista', async ({ request }) => {
     const response = await request.get(
       `${SUPABASE_URL}/rest/v1/ministry_data?select=*`,
       {
         headers: {
-          apikey: SUPABASE_ANON_KEY,
+          apikey: SUPABASE_ANON_KEY!,
           Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
         },
       }

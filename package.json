@@ -1,12 +1,21 @@
 {
   "name": "playwright-ts-portfolio",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.1.0",
+  "description": "Portfólio de QA: testes automatizados com Playwright + TypeScript, incluindo suíte real de E2E, API e segurança para o HOLYSET (sistema em produção).",
   "main": "index.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "report": "playwright show-report"
+  },
+  "keywords": ["playwright", "typescript", "qa", "test-automation", "e2e", "api-testing"],
+  "author": "Maurício Tertuliano",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mauricio-tertu/playwright-ts-portfolio"
+  },
   "devDependencies": {
     "@playwright/test": "^1.61.1",
     "@types/node": "^26.1.1",
