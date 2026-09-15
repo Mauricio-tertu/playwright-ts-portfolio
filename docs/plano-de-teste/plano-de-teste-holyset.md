@@ -5,7 +5,8 @@
 **Ambiente de teste:** segredinho.memremodelacoes.pt (dev)
 **Ambiente de produção:** holy-set.vercel.app
 **Data de criação:** 06/07/2026
-**Versão:** 1.0
+**Última revisão:** 15/09/2026
+**Versão:** 1.1
 
 ---
 
@@ -33,13 +34,13 @@ Definir o escopo, os tipos de teste, a estratégia e os critérios de qualidade 
 | Tipo | Status atual | Ferramenta |
 |---|---|---|
 | Exploratório | ✅ Em execução | Manual + Chrome DevTools |
-| Automação E2E | 🔄 Em construção | Playwright + TypeScript |
-| Teste de API | ❌ Não iniciado | Playwright API / Postman |
-| Regressão | ❌ Não formalizado | A definir (suite Playwright) |
-| Smoke test | ❌ Não iniciado | Playwright (subset @smoke) |
+| Automação E2E | 🔄 Em construção (POM do HOLYSET criado; specs de login/logout pendentes) | Playwright + TypeScript |
+| Teste de API | ✅ Iniciado (endpoint `ministry_data`: autenticado + validação de RLS) | Playwright API |
+| Regressão | 🔶 Parcial (tag `@regression` em uso, sem suite HOLYSET-específica ainda) | Suite Playwright |
+| Smoke test | 🔶 Parcial (tag `@smoke` definida e rodando via CI a cada push; falta cobertura E2E do HOLYSET) | Playwright (subset @smoke) |
 | Compatibilidade | 🔶 Parcial (mobile viewport simulado) | Chrome DevTools Device Toolbar |
 | Acessibilidade | ❌ Não iniciado | axe-core / Lighthouse |
-| Segurança básica | 🔶 Parcial (XSS em nome) | Manual |
+| Segurança básica | 🔶 Parcial (XSS em nome; RLS validado via teste de API) | Manual + Playwright API |
 
 ## 4. Estratégia de Automação — Pirâmide de Testes
 
@@ -88,6 +89,8 @@ Definir o escopo, os tipos de teste, a estratégia e os critérios de qualidade 
 | Cultos | Impedir múltiplos Diretores Musicais | Regra de negócio | Não | 🐛 SCRUM-XX |
 | Auth | Login com e-mail curto válido | API | Não | 🐛 400/429 |
 | Playlists | Excluir playlist sem confirmação | UX/Funcional | Não | 🐛 Reportado |
+| Auth/API | GET `ministry_data` com apikey válida retorna dados | API | Sim | ✅ Passou |
+| Auth/API | GET `ministry_data` sem apikey é bloqueado (RLS) | Segurança/API | Sim | ✅ Passou |
 
 *(preencher incrementalmente conforme novos casos são cobertos)*
 
@@ -100,11 +103,13 @@ Definir o escopo, os tipos de teste, a estratégia e os critérios de qualidade 
 
 ## 9. Próximos Passos
 
-1. Implementar suite de testes de API (Supabase endpoints) — prioridade alta
-2. Definir subset de smoke test (@smoke) para rodar a cada deploy em dev
-3. Rodar auditoria de acessibilidade básica (axe-core) e reportar achados
-4. Formalizar casos de teste em Gherkin para os fluxos críticos já testados exploratoriamente
-5. Negociar com Rafael a inclusão de `data-testid` como padrão de desenvolvimento
+1. ~~Implementar suite de testes de API (Supabase endpoints)~~ ✅ **Feito (15/09/2026)** — `tests/holyset-supabase.spec.ts`, cobrindo `ministry_data` autenticado e validação de RLS (401 sem apikey)
+2. Expandir a suite de API pra outros endpoints (Escalas, Playlists, Biblioteca de Louvores, Cultos)
+3. Escrever os specs E2E de login/logout do HOLYSET usando o POM já criado (`pages/loginPage.holyset.ts`)
+4. Definir subset de smoke test (@smoke) específico do HOLYSET (hoje a tag existe no repositório, mas ainda não cobre fluxos do HOLYSET em si)
+5. Rodar auditoria de acessibilidade básica (axe-core) e reportar achados
+6. Formalizar casos de teste em Gherkin para os fluxos críticos do HOLYSET já testados exploratoriamente (hoje só o fluxo de login do site de prática está em Gherkin, em `docs/casos-de-teste.md`)
+7. Negociar com Rafael a inclusão de `data-testid` como padrão de desenvolvimento
 
 ---
 
