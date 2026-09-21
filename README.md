@@ -19,8 +19,8 @@ Atuo como **QA único e responsável** por um sistema real em produção, usado 
 
 | Métrica | Valor |
 |---|---|
-| Sessões de teste exploratório documentadas | 5 |
-| Defeitos identificados e rastreados no Jira | 20+ (SCRUM-11 a SCRUM-31) |
+| Sessões de teste documentadas | 7 |
+| Defeitos identificados e rastreados no Jira | 20+ (SCRUM-11 a SCRUM-36) |
 | Módulos com CRUD validado de ponta a ponta | 4 (Escalas, Playlists, Biblioteca de Louvores, Cultos) |
 | Falha sistêmica isolada por investigação de causa raiz | 1 (RLS mal configurado) |
 | Cenários de teste automatizados (E2E + API) | 12 |
@@ -39,7 +39,7 @@ Atuo como **QA único e responsável** por um sistema real em produção, usado 
 ### Evidência documentada
 
 - 📋 [Plano de teste formal](docs/plano-de-teste/plano-de-teste-holyset.md) — escopo, tipos de teste, estratégia de automação e matriz de rastreabilidade
-- 📄 [Relatórios de sessão completos](docs/relatorios-holyset/) — 6 sessões, do achado ao ticket
+- 📄 [Relatórios de sessão completos](docs/relatorios-holyset/) — 7 sessões, do achado ao ticket
 - 🧪 [Casos de teste manuais](docs/casos-de-teste-manuais.md)
 - 🔌 [Testes de API via Postman](docs/testes-api-postman.md)
 
@@ -60,9 +60,9 @@ Atuo como **QA único e responsável** por um sistema real em produção, usado 
 - **Login** (`tests/login.spec.ts`) — credenciais válidas, senha inválida, campos vazios
 - **Logout** (`tests/logout.spec.ts`) — fluxo completo de login → logout → validação de retorno
 - **API** (`tests/api.spec.ts`) — GET, POST, PUT, DELETE e rota inexistente (404)
-- **API real do HOLYSET** (`tests/holyset-supabase.spec.ts`) — validação da API REST do Supabase em produção, incluindo teste de segurança negativo (bloqueio de acesso sem autenticação)
+- **API real do HOLYSET** (`tests/holyset-supabase.spec.ts`) — validação da API REST do Supabase no ambiente de desenvolvimento (dev), incluindo teste de segurança negativo (bloqueio de acesso sem autenticação)
 
-> No CI público (badge acima) essa última suíte aparece como *skipped*, não como falha: ela depende de credenciais que não são versionadas por segurança. Localmente, com o `.env` preenchido (ver `.env.example`), os 12 cenários rodam de ponta a ponta.
+> No CI público (badge acima) essa última suíte aparece como *skipped*, não como falha: ela depende de credenciais que não são versionadas por segurança. Localmente, com o `.env` preenchido (ver `.env.example`), a suíte roda contra o ambiente dev do HOLYSET. Na última execução local (21/09/2026), o teste de bloqueio sem autenticação (401) passou; o teste de leitura com apikey válida retornou 401 inesperado e está em investigação.
 
 ## 🔥 Suítes de teste
 
@@ -144,6 +144,8 @@ npm run report
 ## 🔜 Próximos passos
 
 - [x] Suite de testes de API para o HOLYSET (Supabase)
+- [ ] Investigar o 401 inesperado no teste de leitura com apikey válida (ambiente dev)
+- [ ] Versionar o teste de regressão do SCRUM-15 (admin recebe 403 ao editar o próprio nome), hoje só na máquina local
 - [ ] Specs E2E de login/logout do HOLYSET (POM já criado em `pages/loginPage.holyset.ts`)
 - [ ] Smoke test e regressão específicos do HOLYSET (hoje as tags só cobrem o site de prática e a API)
 - [ ] Expandir testes de API para outros endpoints (Escalas, Playlists, Biblioteca de Louvores)
