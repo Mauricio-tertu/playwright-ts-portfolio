@@ -81,13 +81,6 @@ Levantada a necessidade de documentar formalmente: apenas usuários com nível d
 
 ---
 
-## Observações operacionais
-
-- A partir de hoje, o volume de tickets novos por sessão foi limitado a **2 por dia**, para não sobrecarregar Rafael e Erick. Achados adicionais são registrados neste relatório e priorizados para sessões seguintes.
-- Teste de permissão (conta não-admin) ficou bloqueado por indisponibilidade de conta de teste e pelos problemas de confirmação de email acima — retomar quando o Rafael disponibilizar uma conta, ou quando o rate limit do Supabase resetar.
-
----
-
 ## Tickets referenciados
 
 | Ticket | Descrição | Status nesta sessão |
