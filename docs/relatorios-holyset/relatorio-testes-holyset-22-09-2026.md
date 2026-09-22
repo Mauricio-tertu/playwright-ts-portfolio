@@ -75,12 +75,6 @@ Confirmado com o time: o módulo "Meu Perfil" está apenas organizado estrutural
 
 ---
 
-## 6. Regra de negócio a esclarecer
-
-Levantada a necessidade de documentar formalmente: apenas usuários com nível de acesso **Admin** deveriam poder criar/editar ministérios; usuários comuns deveriam ter acesso somente leitura + solicitação de troca de escala. Essa regra ainda não está escrita em lugar nenhum — Maurício vai formalizá-la para uso como referência em testes futuros de permissão.
-
----
-
 ## Tickets referenciados
 
 | Ticket | Descrição | Status nesta sessão |
