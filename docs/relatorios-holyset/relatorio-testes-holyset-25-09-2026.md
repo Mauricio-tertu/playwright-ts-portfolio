@@ -16,7 +16,7 @@
 | Aprovados → Concluído | 9 |
 | Reprovados → A fazer | 2 |
 | Blocos concluídos | Playlists/Louvores + Cultos/Escalas |
-| Tickets novos abertos | 0 (1 planejado — ver Próximos passos) |
+| Tickets novos abertos | 1 (SCRUM-43) |
 
 O cronograma previa estes dois blocos para sábado (26/09) e segunda (28/09). Os dois foram antecipados e concluídos hoje. Somado ao dia 24/09, o reteste de todos os tickets em review foi finalizado em 2 dias.
 
@@ -45,7 +45,7 @@ O cronograma previa estes dois blocos para sábado (26/09) e segunda (28/09). Os
 | SCRUM-22 | Data sem limite + nome numérico | ✅ Concluído (escopo separado*) |
 | SCRUM-30 | Múltiplos Diretores Musicais no mesmo culto | ✅ Concluído |
 
-\* A parte de data e de tamanho mínimo do nome foi corrigida. A validação de conteúdo do nome (nomes sem letras) foi separada para um ticket próprio e mais amplo.
+\* A parte de data e de tamanho mínimo do nome foi corrigida. A validação de conteúdo do nome (nomes sem letras) foi separada no SCRUM-43, que cobre todos os formulários.
 
 ---
 
@@ -67,15 +67,17 @@ O cronograma previa estes dois blocos para sábado (26/09) e segunda (28/09). Os
 
 ## Padrão identificado
 
-A validação de campos de nome **não é consistente entre os formulários**:
+Verificação feita no fim da sessão: **todos os campos de nome do app já usam a mesma regra de mínimo de 2 caracteres.** A regra é consistente, mas valida só o **tamanho**, não o **conteúdo**. Qualquer valor com 2+ caracteres passa, mesmo sem nenhuma letra (`@@`, `--`, `''`, números longos).
 
-| Formulário | Vazio/espaços | Mín. 2 caracteres | Exige letra |
-|---|---|---|---|
-| Culto | ✅ | ✅ | ❌ |
-| Louvor (título/artista) | ✅ | ❌ | ❌ |
-| Playlist | a confirmar | a confirmar | a confirmar |
+| Validação | Situação atual |
+|---|---|
+| Vazio / só espaços | ✅ Bloqueado |
+| Mínimo de 2 caracteres | ✅ Bloqueado |
+| Exige pelo menos 1 letra | ❌ Não existe |
+| Limita símbolos permitidos | ❌ Não existe |
+| Tamanho máximo | ❌ Não existe |
 
-Cada tela foi corrigida de um jeito. A recomendação é uma regra única aplicada em todos os campos de nome.
+Para resolver de uma vez, foi aberto o **SCRUM-43 — Padronizar validação de campos de nome em todos os formulários**, com regra proposta (mín. 2 caracteres + pelo menos 1 letra + lista de caracteres permitidos + máx. 100), critério de aceite com exemplos que devem ser bloqueados e aceitos, e recomendação de aplicar a mesma regra no Supabase, já que validação só no front pode ser contornada via API.
 
 ---
 
@@ -102,12 +104,13 @@ Cada tela foi corrigida de um jeito. A recomendação é uma regra única aplica
 ## Situação do quadro após a sessão
 
 - **Com os devs:** SCRUM-23 (Perfil — em ajuste), SCRUM-31 (Auth — Em Progresso)
-- **A fazer (reprovados hoje):** SCRUM-19, SCRUM-29
+- **A fazer (reprovados hoje):** SCRUM-19, SCRUM-29 (coberto pelo SCRUM-43)
+- **Novo:** SCRUM-43 (validação padronizada de nomes)
 - **Não corrigidos ainda:** SCRUM-33, 34, 35, 36, 38
 
 ## Próximos passos (28/09)
 
-1. Criar o ticket **"Padronizar validação de campos de nome em todos os formulários"** e referenciá-lo nos comentários do SCRUM-22 e do SCRUM-29.
-2. Decidir com o Rafael se o SCRUM-29 é fechado como coberto pelo ticket novo.
+1. Referenciar o **SCRUM-43** nos comentários do SCRUM-22 e do SCRUM-29.
+2. Decidir com o Rafael se o SCRUM-29 é fechado como coberto pelo SCRUM-43.
 3. Avaliar as observações 1–5 e abrir no máximo 2 tickets novos.
 4. Mover o SCRUM-39 para Concluído com o placar consolidado de 24–25/09.
