@@ -27,18 +27,14 @@ Atuo como **QA único e responsável** por um sistema real em produção, usado 
 | Casos de teste manuais formais do HOLYSET (login) | 2 executados, 3 planejados |
 | Metodologia de teste | Mobile-first (viewport ~338×689) |
 
-### Destaques técnicos
+### Destaques do meu trabalho
 
-- **Investigação de causa raiz, não só sintoma:** em vez de reportar cada erro 403 isoladamente, isolei que a origem comum era uma *policy* de **RLS (Row Level Security)** mal configurada no banco (Supabase), validando a hipótese com testes cruzados em áreas não afetadas do sistema. Isso evitou uma investigação ampla e direcionou a correção da equipe de desenvolvimento com precisão.
-- **Identificação de regra de negócio violada:** o sistema permitia múltiplos "Diretor Musical" no mesmo culto, contrariando uma regra que a equipe assumia como garantida pela interface.
-- **Padrão sistêmico, não bug isolado:** identifiquei ausência recorrente de validação de formulário nos módulos de Culto e Playlist através de testes progressivos (do caso simples ao caso extremo), escalando como problema estrutural em vez de tickets soltos.
-- **Escalação criteriosa:** quando um comportamento era ambíguo (regra de negócio incerta, não um bug confirmado), escalei como pergunta ao Product Owner em vez de abrir ticket sem validação — evitando ruído no backlog.
-- **Achado de testabilidade proativo:** identifiquei e documentei a ausência sistêmica de atributos `id`/`name`/`data-testid` em toda a aplicação, um risco tanto para automação quanto para acessibilidade, e escalei como débito técnico para a equipe.
-- **Teste de segurança básico:** validação de XSS em campos de nome, com resultado positivo (inputs tratados como texto literal, sem execução de script).
-- **Investigação independente de credenciais + teste de API de segurança:** sem acesso direto às chaves do Supabase, localizei a configuração no código-fonte e capturei a URL/anon key via inspeção de tráfego de rede no ambiente real, depois automatizei um teste que valida que a API **bloqueia corretamente acesso sem autenticação (401)** — confirmando que a política de RLS está ativa e funcionando.
-- **Smoke test pós-deploy e diagnóstico de ambiente (06/10 e 07/10):** no primeiro smoke após o deploy para o Vercel, encontrei falhas em Início e Playlists (função inexistente no banco com erro 404, erros 500 e 406 em pedidos ao Supabase, tela de Playlists vazia). Relacionei os erros de servidor a um banco desalinhado com o deploy, o que o tech lead confirmou. Adiei os retestes de tickets antigos, porque o resultado não seria válido naquele ambiente, e repeti o smoke no dia seguinte: passou, incluindo a correção de um bug de CSS no cartão "Você está escalado".
-- **Triagem de escopo nos retestes (30/09):** ao retestar os tickets em revisão, separei os que eram novas funcionalidades (SCRUM-41 e SCRUM-42) em vez de os forçar a "passou" ou "falhou". Ao verificar o fluxo de escolha de ministérios (SCRUM-9), encontrei o SCRUM-47: quando o admin recusa um pedido de entrada, o membro continua a ver "Pedido enviado".
-- **Casos de teste manuais formais (08/10):** primeiros casos escritos e executados para o login do HOLYSET (senha incorreta e campos vazios), com passos, resultado esperado, resultado obtido e status.
+- **Procuro a causa, não só o sintoma.** Vários erros 403 apareciam em telas diferentes. Em vez de abrir um ticket para cada um, testei áreas que não deviam falhar e percebi que a origem era a mesma: uma política de RLS mal configurada no Supabase. Um problema só, e a equipe pôde corrigir com precisão.
+- **Reporto o que é bug e pergunto o que não tenho certeza.** O sistema aceitava vários Diretores Musicais no mesmo culto e isso violava uma regra, então abri o bug. Quando a regra não estava clara, levei como pergunta ao Product Owner, para não encher o backlog de ruído.
+- **Vejo padrões, não bugs soltos.** Faltava validação em campos de Culto e Playlist. Testei do caso simples ao extremo (vazio, só espaços, datas em 2119) e levei como problema de estrutura.
+- **Segurança básica.** Testei XSS nos campos de nome (o texto foi tratado como texto, sem executar nada). Automatizei também um teste que confirma que a API bloqueia acesso sem login (401).
+- **Smoke depois do deploy.** No primeiro deploy para o Vercel (06/10) vi erros 404, 500 e 406 e os relacionei a um banco desalinhado, o que o Rafael confirmou. Não fiz os retestes antigos antes da correção, porque o resultado não valeria. Repeti no dia seguinte e passou.
+- **Testabilidade.** Percebi que a aplicação não tem `id`/`data-testid` nos elementos, o que atrapalha a automação e a acessibilidade, e levei como débito técnico.
 
 ### Evidência documentada
 
