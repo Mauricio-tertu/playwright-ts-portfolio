@@ -20,10 +20,11 @@ Atuo como **QA único e responsável** por um sistema real em produção, usado 
 | Métrica | Valor |
 |---|---|
 | Sessões de teste documentadas | 15 |
-| Defeitos identificados e rastreados no Jira | 20+ (SCRUM-11 a SCRUM-36) |
+| Defeitos identificados e rastreados no Jira | 20+ (SCRUM-11 a SCRUM-47) |
 | Módulos com CRUD validado de ponta a ponta | 4 (Escalas, Playlists, Biblioteca de Louvores, Cultos) |
 | Falha sistêmica isolada por investigação de causa raiz | 1 (RLS mal configurado) |
 | Cenários de teste automatizados (E2E + API) | 12 |
+| Casos de teste manuais formais do HOLYSET (login) | 2 executados, 3 planejados |
 | Metodologia de teste | Mobile-first (viewport ~338×689) |
 
 ### Destaques técnicos
@@ -35,6 +36,9 @@ Atuo como **QA único e responsável** por um sistema real em produção, usado 
 - **Achado de testabilidade proativo:** identifiquei e documentei a ausência sistêmica de atributos `id`/`name`/`data-testid` em toda a aplicação, um risco tanto para automação quanto para acessibilidade, e escalei como débito técnico para a equipe.
 - **Teste de segurança básico:** validação de XSS em campos de nome, com resultado positivo (inputs tratados como texto literal, sem execução de script).
 - **Investigação independente de credenciais + teste de API de segurança:** sem acesso direto às chaves do Supabase, localizei a configuração no código-fonte e capturei a URL/anon key via inspeção de tráfego de rede no ambiente real, depois automatizei um teste que valida que a API **bloqueia corretamente acesso sem autenticação (401)** — confirmando que a política de RLS está ativa e funcionando.
+- **Smoke test pós-deploy e diagnóstico de ambiente (06/10 e 07/10):** no primeiro smoke após o deploy para o Vercel, encontrei falhas em Início e Playlists (função inexistente no banco com erro 404, erros 500 e 406 em pedidos ao Supabase, tela de Playlists vazia). Relacionei os erros de servidor a um banco desalinhado com o deploy, o que o tech lead confirmou. Adiei os retestes de tickets antigos, porque o resultado não seria válido naquele ambiente, e repeti o smoke no dia seguinte: passou, incluindo a correção de um bug de CSS no cartão "Você está escalado".
+- **Triagem de escopo nos retestes (30/09):** ao retestar os tickets em revisão, separei os que eram novas funcionalidades (SCRUM-41 e SCRUM-42) em vez de os forçar a "passou" ou "falhou". Ao verificar o fluxo de escolha de ministérios (SCRUM-9), encontrei o SCRUM-47: quando o admin recusa um pedido de entrada, o membro continua a ver "Pedido enviado".
+- **Casos de teste manuais formais (08/10):** primeiros casos escritos e executados para o login do HOLYSET (senha incorreta e campos vazios), com passos, resultado esperado, resultado obtido e status.
 
 ### Evidência documentada
 
@@ -146,6 +150,9 @@ npm run report
 ## 🔜 Próximos passos
 
 - [x] Suite de testes de API para o HOLYSET (Supabase)
+- [x] Primeiros casos de teste manuais formais do HOLYSET (login: senha incorreta e campos vazios)
+- [ ] Executar os casos de teste de login restantes (TC-LOGIN-01, 04 e 05)
+- [ ] Retestes dos tickets em revisão e exploratório no módulo Ministérios (adiados por causa do banco desalinhado em 06/10)
 - [ ] Investigar o 401 inesperado no teste de leitura com apikey válida (ambiente dev)
 - [ ] Versionar o teste de regressão do SCRUM-15 (admin recebe 403 ao editar o próprio nome), hoje só na máquina local
 - [ ] Specs E2E de login/logout do HOLYSET (POM já criado em `pages/loginPage.holyset.ts`)
