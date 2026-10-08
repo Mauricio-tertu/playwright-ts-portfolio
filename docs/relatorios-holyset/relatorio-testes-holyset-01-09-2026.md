@@ -1,7 +1,7 @@
 # Relatório de Testes Exploratórios — HolySet
 
 **Projeto:** HolySet — plataforma de gestão de ministérios (escalas, cultos, repertório musical)
-**Papel:** Consultor de QA (projeto colaborativo), em conjunto com engenheiro sénior da Deloitte Portugal
+**Papel:** Consultor de QA (projeto colaborativo), em conjunto com um engenheiro sénior
 **Tipo de teste:** Exploratory Testing (teste exploratório manual)
 **Data:** 01/09/2026
 **Ambiente:** Produção (holy-set.vercel.app)

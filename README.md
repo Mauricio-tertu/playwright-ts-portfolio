@@ -11,9 +11,9 @@ Meu trabalho como QA não é só encontrar bugs, é entender o sistema profundam
 
 ---
 
-## 🏢 Projeto Real em Produção — HOLYSET
+## 🏢 Projeto HOLYSET
 
-Atuo como **QA único e responsável** por um sistema real em produção, usado por igrejas para gestão de cultos, escalas e repertório musical — [holy-set.vercel.app](https://holy-set.vercel.app) — trabalhando junto a um engenheiro sénior (com passagem pela Deloitte Portugal) e um desenvolvedor.
+Atuo como **QA único e responsável** por um sistema real em produção, usado por igrejas para gestão de cultos, escalas e repertório musical — [holy-set.vercel.app](https://holy-set.vercel.app) — trabalhando junto a um engenheiro sénior e um desenvolvedor.
 
 ### Números do trabalho até aqui
 
