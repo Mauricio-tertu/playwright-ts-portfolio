@@ -19,7 +19,7 @@ Atuo como **QA único e responsável** por um sistema real em produção, usado 
 
 | Métrica | Valor |
 |---|---|
-| Sessões de teste documentadas | 7 |
+| Sessões de teste documentadas | 15 |
 | Defeitos identificados e rastreados no Jira | 20+ (SCRUM-11 a SCRUM-36) |
 | Módulos com CRUD validado de ponta a ponta | 4 (Escalas, Playlists, Biblioteca de Louvores, Cultos) |
 | Falha sistêmica isolada por investigação de causa raiz | 1 (RLS mal configurado) |
@@ -39,8 +39,9 @@ Atuo como **QA único e responsável** por um sistema real em produção, usado 
 ### Evidência documentada
 
 - 📋 [Plano de teste formal](docs/plano-de-teste/plano-de-teste-holyset.md) — escopo, tipos de teste, estratégia de automação e matriz de rastreabilidade
-- 📄 [Relatórios de sessão completos](docs/relatorios-holyset/) — 7 sessões, do achado ao ticket
-- 🧪 [Casos de teste manuais](docs/casos-de-teste-manuais.md)
+- 📄 [Relatórios de sessão completos](docs/relatorios-holyset/) — 15 sessões, do achado ao ticket
+- ✅ [Casos de teste manuais do HOLYSET (login)](docs/casos-de-teste-holyset/casos-de-teste-login.md) — passos, resultado esperado e obtido, status
+- 🧪 [Casos de teste manuais do site de prática](docs/casos-de-teste-manuais.md)
 - 🔌 [Testes de API via Postman](docs/testes-api-postman.md)
 
 ---
@@ -125,7 +126,8 @@ npm run report
 ├── docs/
 │   ├── plano-de-teste/           # Plano de teste formal do HOLYSET
 │   ├── relatorios-holyset/       # Relatórios de sessão de teste exploratório
-│   ├── casos-de-teste-manuais.md
+│   ├── casos-de-teste-holyset/   # Casos de teste manuais do HOLYSET
+│   ├── casos-de-teste-manuais.md # Casos do site de prática
 │   └── testes-api-postman.md
 ├── pages/                        # Page Object Model
 ├── tests/                        # Specs Playwright
